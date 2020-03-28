@@ -34,14 +34,14 @@
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jest": "^23.8.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^2.5.1",
     "html-webpack-plugin": "^4.0.1",
     "jest": "^25.2.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
     "react-test-renderer": "^16.13.1",
+    "redux-mock-store": "^1.5.4",
     "terser-webpack-plugin": "^2.3.5",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11",
@@ -55,6 +55,8 @@
     ]
   },
   "dependencies": {
-    "compression-webpack-plugin": "^3.1.0"
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-redux": "^7.2.0"
   }
 }
