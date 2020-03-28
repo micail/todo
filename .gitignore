@@ -1,5 +1,8 @@
 # Ignore node modules
 /node_modules
 
+# Ignore build
+/dst
+
 # Ignore test coverage
 /coverage
