@@ -1,18 +1,24 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
+import Form from './Form';
+import List from './List';
 
-export const App = () => {
+const App = (props) => {
+
+  const { toDoEntries } = props;
+
   return (
     <div>
-      <h1>Helo world !</h1>
+      <Form />
+      <List toDoEntries={toDoEntries} />
     </div>
   );
 };
 
 const mapStateToProps = (state) => {
   return {
-    toDoEntries: state.toDoEntries,
+    toDoEntries: state.toDoEntries.toJS(),
   };
 };
 
