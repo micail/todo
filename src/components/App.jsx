@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { connect } from 'react-redux';
 
 export const App = () => {
   return (
@@ -9,4 +10,10 @@ export const App = () => {
   );
 };
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    toDoEntries: state.toDoEntries,
+  };
+};
+
+export default connect(mapStateToProps)(App);
