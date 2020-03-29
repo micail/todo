@@ -1,7 +1,7 @@
-import makreStore from '../store';
+import makeStore from '../store';
 
 describe('Store tests', () => {
-  const store = makreStore();
+  const store = makeStore();
 
   it('should create a new store', () => {
     expect(store).toBeDefined();
