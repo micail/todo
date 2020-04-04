@@ -1,17 +1,28 @@
 
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
+import { updateEntry, deleteEntry } from '../store/actions/toDoEntryActions';
+
 import Form from './Form';
 import List from './List';
 
 const App = (props) => {
-
   const { toDoEntries } = props;
+
+  const dispatch = useDispatch();
+
+  const deleteToDo = (id) => {
+    dispatch(deleteEntry(id));
+  };
+
+  const updateToDO = (id) => {
+    dispatch(updateEntry({ id }));
+  };
 
   return (
     <div>
       <Form />
-      <List toDoEntries={toDoEntries} />
+      <List toDoEntries={toDoEntries} updateEntry={updateToDO} deleteEntry={deleteToDo} />
     </div>
   );
 };
