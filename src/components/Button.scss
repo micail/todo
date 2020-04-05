@@ -1,0 +1,18 @@
+button {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 1em;
+  background: rgba(255, 255, 255, .1);
+  display: inline-block;
+  border: none;
+  border-radius: 0.3em;
+  padding: 0.8em;
+  margin: .2em;
+  background-color: #e8eeef;
+  color: #5b5b5c;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
+  margin-bottom: 2em;
+  &:disabled {
+    background-color: #f7f7f7;
+    color: #c8c8c8;
+  }
+}
