@@ -4,7 +4,7 @@ module.exports = {
   entry: path.join(__dirname, 'src', 'index.jsx'),
 	output: {
 		filename: '[name].bundle.js',
-		path: path.resolve(__dirname, 'dist')
+		path: path.resolve(__dirname, 'dist'),
 	},
   module: {
     rules: [{
@@ -24,5 +24,5 @@ module.exports = {
       test: /\.(jpg|jpeg|png|gif|mp3|svg|eot|woff|woff2|ttf)$/,
       loaders: ['file-loader'],
     }],
-  }
+  },
 };
