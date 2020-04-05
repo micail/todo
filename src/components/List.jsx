@@ -18,7 +18,7 @@ const List = ({ toDoEntries, deleteEntry, updateEntry }) => {
           <div>
             <h1>{name}</h1>
             <p>{description}</p>
-            <Button name="delete" toDoAction={deleteEntry} id={id} />
+            <Button name="delete" action={deleteEntry} id={id} />
             <button name="update" type="button" onClick={() => (setUpdate(id))}>UPDATE</button>
           </div>
         ) : (<Form resetState={resetState} updateEntry={updateEntry} name={name} description={description} id={id} />)

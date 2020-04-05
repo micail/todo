@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Button = ({ name, toDoAction, id }) => {
+const Button = ({ name, action, id }) => {
   return (
-    <button type="button" onClick={(e) => toDoAction(id, e)} className="btn" id={`btn-${name}`}>{name.toUpperCase()}</button>
+    <button type="button" onClick={(e) => action(id, e)} className="btn" id={`btn-${name}`}>{name.toUpperCase()}</button>
   );
 };
 

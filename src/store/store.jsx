@@ -1,7 +1,7 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 
 import toDoEntries from './reducers/toDoEntryReducer';
-import recordPlay from './reducers/recordReducer';
+import recordState from './reducers/recordReducer';
 import appState from './reducers/appStateReducer';
 
 import record from './actions/recordActions';
@@ -31,7 +31,7 @@ const applyMid = applyMiddleware(recordMiddleware);
 const makeStore = () => createStore(combineReducers(
   {
     toDoEntries,
-    recordPlay,
+    recordState,
     appState,
   },
 ), applyMid);
