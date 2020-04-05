@@ -82,7 +82,7 @@ const App = (props) => {
       </div>
 
       <div className="row">
-        <div className="column">
+        <div className="col-xs-12 col-md-6">
           <Button name="Record" action={startRecording} dis={(props.appState !== 'RECORDING')} />
           <Button name="Stop Recording" action={stopRecording} dis={(props.appState == 'RECORDING')} />
           <Button name="Play Recording" action={playRecording} dis={shouldEnablePlayButton()} />
