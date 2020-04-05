@@ -1,6 +1,6 @@
 import * as types from '../types/appStateTypes';
 
-export const INITIAL_STATE = 'RECORDING';
+export const INITIAL_STATE = 'IDLE';
 
 const appStateReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {

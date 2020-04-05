@@ -37,8 +37,15 @@ const App = (props) => {
     return () => clearTimeout(interval);
   };
 
+  const shouldEnablePlayButton = () => {
+    if (props.appState != 'PLAYING' && props.recordState.size > 0) {
+      return true;
+    }
+    return false;
+  };
+
   useEffect(() => {
-    if (props.appState === 'PLAYING' && props.recordState) {
+    if (props.appState === 'PLAYING' && props.recordState.size > 0) {
       const recorded = props.recordState.toJS();
       setToDoList([]);
       recorded.map((r, i) => {
@@ -55,8 +62,8 @@ const App = (props) => {
     <div>
       <Form />
       <List toDoEntries={toDoList} updateEntry={updateToDO} deleteEntry={deleteToDo} />
-      <Button name="record" action={startRecording} />
-      <Button name="play" action={playRecord} />
+      <Button name="record" action={startRecording} dis={(props.appState !== 'RECORDING')} />
+      <Button name="play" action={playRecord} dis={shouldEnablePlayButton()} />
     </div>
   );
 };
