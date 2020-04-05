@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createEntry, updateEntry } from '../store/actions/toDoEntryActions';
 
+import './Form.scss';
+
 const Form = ({ name, description, id, resetState }) => {
   const [toDo, setToDo] = useState({});
   const dispatch = useDispatch();

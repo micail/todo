@@ -10,6 +10,8 @@ import Form from './Form';
 import List from './List';
 import Button from './Button';
 
+import './App.scss';
+
 const App = (props) => {
   const [toDoList, setToDoList] = useState([]);
   const dispatch = useDispatch();
@@ -65,13 +67,28 @@ const App = (props) => {
   }, [props]);
 
   return (
-    <div>
-      <Form />
-      <List toDoEntries={toDoList} updateEntry={updateToDO} deleteEntry={deleteToDo} />
-      <Button name="Record" action={startRecording} dis={(props.appState !== 'RECORDING')} />
-      <Button name="Stop Recording" action={stopRecording} dis={(props.appState == 'RECORDING')} />
-      <Button name="Play Recording" action={playRecording} dis={shouldEnablePlayButton()} />
-      <Button name="Clear Recording" action={clearRecording} dis={(props.appState !== 'RECORDING' && props.recordState.size > 0)} />
+    <div className="container">
+
+      <div className="row">
+        <div className="col-xs-12 col-md-6">
+          <Form />
+        </div>
+      </div>
+
+      <div className="row">
+        <div className="column">
+          <List toDoEntries={toDoList} updateEntry={updateToDO} deleteEntry={deleteToDo} />
+        </div>
+      </div>
+
+      <div className="row">
+        <div className="column">
+          <Button name="Record" action={startRecording} dis={(props.appState !== 'RECORDING')} />
+          <Button name="Stop Recording" action={stopRecording} dis={(props.appState == 'RECORDING')} />
+          <Button name="Play Recording" action={playRecording} dis={shouldEnablePlayButton()} />
+          <Button name="Clear Recording" action={clearRecording} dis={(props.appState !== 'RECORDING' && props.recordState.size > 0)} />
+        </div>
+      </div>
     </div>
   );
 };

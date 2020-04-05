@@ -5,6 +5,8 @@ import { Provider } from 'react-redux';
 import makeStore from './store/store';
 import App from './components/App';
 
+import './style.scss';
+
 const store = makeStore();
 
 
