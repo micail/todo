@@ -1,6 +1,39 @@
-import { createStore, combineReducers } from 'redux';
-import toDoEntryReducer from './reducers/toDoEntryReducer';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 
-const makeStore = () => createStore(combineReducers({ toDoEntries: toDoEntryReducer }));
+import toDoEntries from './reducers/toDoEntryReducer';
+import recordPlay from './reducers/recordReducer';
+import appState from './reducers/appStateReducer';
+
+import record from './actions/recordActions';
+
+const recordChange = (prevToDoEntries, nextToDoEntries, store) => {
+  const prevToDoEntriesJSON = JSON.stringify(prevToDoEntries.toJS());
+  const nextToDoEntriesJSON = JSON.stringify(nextToDoEntries.toJS());
+
+  if (prevToDoEntriesJSON !== nextToDoEntriesJSON) {
+    store.dispatch(record(nextToDoEntries));
+  }
+};
+
+const recordMiddleware = (store) => (next) => (action) => {
+  const prevState = store.getState();
+  const prevToDoEntries = prevState.toDoEntries;
+
+  next(action);
+
+  const nextToDoEntries = store.getState().toDoEntries;
+
+  if (prevState.appState === 'RECORDING') { recordChange(prevToDoEntries, nextToDoEntries, store); }
+};
+
+const applyMid = applyMiddleware(recordMiddleware);
+
+const makeStore = () => createStore(combineReducers(
+  {
+    toDoEntries,
+    recordPlay,
+    appState,
+  },
+), applyMid);
 
 export default makeStore;

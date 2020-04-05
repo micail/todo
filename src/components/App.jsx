@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { updateEntry, deleteEntry } from '../store/actions/toDoEntryActions';
 
@@ -7,6 +7,11 @@ import Form from './Form';
 import List from './List';
 
 const App = (props) => {
+
+  useEffect(() => {
+    console.log('asdfasdfasdfasdfasdf', props);
+  },[props]);
+
   const { toDoEntries } = props;
 
   const dispatch = useDispatch();

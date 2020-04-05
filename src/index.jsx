@@ -7,9 +7,12 @@ import App from './components/App';
 
 const store = makeStore();
 
+
 ReactDOM.render(
   <Provider store={store}>
     <App />
   </Provider>,
   document.getElementById('app'),
 );
+
+export default store;
