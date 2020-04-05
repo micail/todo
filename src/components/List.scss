@@ -1,0 +1,15 @@
+.list-item {
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  display: flex;
+
+  h1 {
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+
+  p {
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+}

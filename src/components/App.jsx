@@ -76,13 +76,13 @@ const App = (props) => {
       </div>
 
       <div className="row">
-        <div className="column">
+        <div className="col-xs-12 col-md-6">
           <List toDoEntries={toDoList} updateEntry={updateToDO} deleteEntry={deleteToDo} />
         </div>
       </div>
 
       <div className="row">
-        <div className="col-xs-12 col-md-6">
+        <div className="col-xs-12 col-md-6 btn-wrapper">
           <Button name="Record" action={startRecording} dis={(props.appState !== 'RECORDING')} />
           <Button name="Stop Recording" action={stopRecording} dis={(props.appState == 'RECORDING')} />
           <Button name="Play Recording" action={playRecording} dis={shouldEnablePlayButton()} />

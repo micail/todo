@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import Button from './Button';
 import Form from './Form';
 
+import './List.scss';
+
 const List = ({ toDoEntries, deleteEntry, updateEntry }) => {
   const [update, setUpdate] = useState();
 
@@ -15,11 +17,11 @@ const List = ({ toDoEntries, deleteEntry, updateEntry }) => {
       const { name, description, id } = toDo;
       return (update !== id
         ? (
-          <div>
+          <div className="list-item">
             <h1>{name}</h1>
             <p>{description}</p>
-            <Button name="remove" action={deleteEntry} id={id} dis />
-            <button name="update" type="button" onClick={() => (setUpdate(id))}>UPDATE</button>
+            <Button className="btn" name="remove" action={deleteEntry} id={id} dis />
+            <button className="btn" name="update" type="button" onClick={() => (setUpdate(id))}>UPDATE</button>
           </div>
         ) : (<Form resetState={resetState} updateEntry={updateEntry} name={name} description={description} id={id} />)
       );

@@ -1,32 +1,35 @@
 // Variables
 $col_number: 12;
 
-$sm: 576;
-$md: 768;
-$lg: 992;
-$xl: 1200;
+$xs: 576px;
+$sm: 576px;
+$md: 768px;
+$lg: 992px;
+$xl: 1200px;
 
 
 // Mixins inspired by the Boostrap
 @mixin grid($size, $col_number) {
 	@for $i from 1 through $col_number {
 		.col-#{$size}-#{$i} {
+			display: flex;
       flex-basis: (100 / ($col_number / $i) ) * 1%;
-      padding: 1em;
+			padding: 1em;
+			flex-wrap: wrap;
 		}
 	}
 }
 
 
 @mixin breakpoints($media) {
-		@media (min-width: 0px) { @content;}
 		@media (min-width: $sm) { @content; }
 		@media (min-width: $md) { @content; }
 		@media (min-width: $lg) { @content; }
 		@media (min-width: $xl) { @content; }
 }
 
-@include grid(xs, 12);
+
+	@include grid(xs, $col_number);
 
 @include breakpoints(sm) {
 	@include grid(sm, $col_number);
@@ -57,7 +60,8 @@ html {
 
 html, body, .container {
   width: 100%;
-  height: 100%;
+	height: 100%;
+	overflow: auto;
 }
 
 .row {
