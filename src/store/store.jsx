@@ -4,7 +4,7 @@ import toDoEntries from './reducers/toDoEntryReducer';
 import recordState from './reducers/recordReducer';
 import appState from './reducers/appStateReducer';
 
-import record from './actions/recordActions';
+import { record } from './actions/recordActions';
 
 const recordChange = (prevToDoEntries, nextToDoEntries, store) => {
   const prevToDoEntriesJSON = JSON.stringify(prevToDoEntries.toJS());

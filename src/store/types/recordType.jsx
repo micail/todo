@@ -1,3 +1,2 @@
-const RECORD = 'RECORD';
-
-export default RECORD;
+export const RECORD = 'RECORD';
+export const CLEAR_RECORD = 'CLEAR_RECORD';

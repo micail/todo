@@ -1,5 +1,4 @@
-import RECORD from '../types/recordType';
+import { RECORD, CLEAR_RECORD } from '../types/recordType';
 
-const record = (toDoS) => ({ type: RECORD, toDoS });
-
-export default record;
+export const record = (toDoS) => ({ type: RECORD, toDoS });
+export const clearRecord = () => ({ type: CLEAR_RECORD });

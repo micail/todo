@@ -19,7 +19,7 @@ const Form = ({ name, description, id, resetState }) => {
     if (!id) {
       const hash = () => Math.random().toString(36).slice(2);
       event.preventDefault();
-      dispatch(createEntry({ name: toDo.name, description: toDo.description, id: hash() }));
+      dispatch(createEntry({ name: toDo.name, description: toDo.description, id: hash(), creationDate: new Date()}));
     } else {
       dispatch(updateEntry({ name: toDo.name, description: toDo.description, id }));
       resetState();
