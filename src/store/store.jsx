@@ -1,3 +1,7 @@
+/**
+* @namespace store
+*/
+
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 
 import toDoEntries from './reducers/toDoEntryReducer';
@@ -71,6 +75,14 @@ const loadedState = (store) => (next) => (action) => {
 
 const applyMid = applyMiddleware(loadedState, recordMiddleware);
 
+/**
+ * Creates a new Redux store
+ * @memberof store
+ * @param routerMiddleware - router middleware
+ * @param moreReducers {Object} - extra reducers to add for extending purposes only
+ * @param moreMiddleware {Array<function>} - extra middleware to add for extending purposes only
+ * @returns {Store<any>}
+ */
 const makeStore = () => createStore(combineReducers(
   {
     toDoEntries,
