@@ -88,16 +88,16 @@ const App = (props) => {
 
       <div className="row">
         <div className="col-xs-12 col-md-6 padding-none">
-          <div className="col-xs-12 col-lg-3">
+          <div className="col-xs-12 col-md-6 col-lg-3">
             <Button name="Record" action={startRecording} dis={(props.appState !== 'RECORDING')} />
           </div>
-          <div className="col-xs-12 col-lg-3">
+          <div className="col-xs-12 col-md-6 col-lg-3">
             <Button name="Stop Recording" action={stopRecording} dis={(props.appState == 'RECORDING')} />
           </div>
-          <div className="col-xs-12 col-lg-3">
+          <div className="col-xs-12 col-md-6 col-lg-3">
             <Button name="Play Recording" action={playRecording} dis={shouldEnablePlayButton()} />
           </div>
-          <div className="col-xs-12 col-lg-3">
+          <div className="col-xs-12 col-md-6 col-lg-3">
             <Button name="Clear Recording" action={clearRecording} dis={(props.appState !== 'RECORDING' && props.recordState.size > 0)} />
           </div>
         </div>
