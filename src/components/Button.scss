@@ -1,9 +1,4 @@
-.btn-wrapper{
-  justify-content: space-between;
-}
-
 .btn {
-  display: flex;
   font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 1em;
   background: rgba(255, 255, 255, .1);
@@ -15,7 +10,9 @@
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
   margin-bottom: 2em;
   margin-right: 0.3em;
-
+  width: 100%;
+  text-align: center;
+  align-self: center;
   &:disabled {
     background-color: #f7f7f7;
     color: #c8c8c8;

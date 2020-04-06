@@ -22,10 +22,15 @@ $xl: 1200px;
 
 
 @mixin breakpoints($media) {
+	@if $media == sm {
 		@media (min-width: $sm) { @content; }
+	} @else if $media == md {
 		@media (min-width: $md) { @content; }
+	} @else if $media == lg {
 		@media (min-width: $lg) { @content; }
+	} @else if $media == xl {
 		@media (min-width: $xl) { @content; }
+	}
 }
 
 
@@ -67,4 +72,7 @@ html, body, .container {
 .row {
   display: flex;
 	flex-wrap: wrap;
+}
+.padding-none {
+	padding: 0 !important;
 }
