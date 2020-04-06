@@ -20,8 +20,12 @@ const List = ({ toDoEntries, deleteEntry, updateEntry }) => {
           <div className="list-item">
             <h1>{name}</h1>
             <p>{description}</p>
+            <div className="col-sm-6 col-md-2 padding-none">
             <Button className="btn" name="remove" action={deleteEntry} id={id} dis />
+            </div>
+            <div className="col-sm-6 col-md-2 padding-none">
             <button className="btn" name="update" type="button" onClick={() => (setUpdate(id))}>UPDATE</button>
+            </div>
           </div>
         ) : (<Form resetState={resetState} updateEntry={updateEntry} name={name} description={description} id={id} />)
       );
