@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
-import { updateEntry, deleteEntry } from '../store/actions/toDoEntryActions';
+import { updateEntry, deleteEntry, clearEntries } from '../store/actions/toDoEntryActions';
 import { recording, playing, idle } from '../store/actions/appState';
 
 import { clearRecord } from '../store/actions/recordActions';
@@ -33,6 +33,8 @@ const App = (props) => {
   };
 
   const playRecording = () => {
+    stopRecording();
+    dispatch(clearEntries());
     dispatch(playing());
   };
 
@@ -53,11 +55,14 @@ const App = (props) => {
   };
 
   useEffect(() => {
+    if (props.appState === '') {
+      stopRecording();
+    }
     if (props.appState === 'PLAYING' && props.recordState.size > 0) {
       const recorded = props.recordState.toJS();
       setToDoList([]);
       recorded.map((r, i) => {
-        const delay = i * 2000;
+        const delay = i * 1000;
         return renderInDelay(r, delay);
       });
       stopRecording();

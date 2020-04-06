@@ -4,7 +4,29 @@ import toDoEntries from './reducers/toDoEntryReducer';
 import recordState from './reducers/recordReducer';
 import appState from './reducers/appStateReducer';
 
-import { record } from './actions/recordActions';
+import { record, loadRecord } from './actions/recordActions';
+
+const saveState = (state) => {
+  try {
+    const serializedState = JSON.stringify(state);
+    return localStorage.setItem('toDoStorage', serializedState);
+  } catch (err) {
+    return console.log('Error', err);
+  }
+};
+
+const loadState = () => {
+  try {
+    const serializedState = localStorage.getItem('toDoStorage');
+    if (serializedState === null) {
+      return null;
+    }
+    return JSON.parse(serializedState);
+  } catch (err) {
+    return console.log('Error', err);
+  }
+};
+
 
 const recordChange = (prevToDoEntries, nextToDoEntries, store) => {
   const prevToDoEntriesJSON = JSON.stringify(prevToDoEntries.toJS());
@@ -21,12 +43,33 @@ const recordMiddleware = (store) => (next) => (action) => {
 
   next(action);
 
-  const nextToDoEntries = store.getState().toDoEntries;
+  const nextState = store.getState();
+  const nextToDoEntries = nextState.toDoEntries;
 
   if (prevState.appState === 'RECORDING') { recordChange(prevToDoEntries, nextToDoEntries, store); }
+
+  if (prevState.appState === 'RECORDING' && nextState.appState !== 'RECORDING') { saveState(nextState.recordState); }
 };
 
-const applyMid = applyMiddleware(recordMiddleware);
+let recordLoadedFromTheState = false;
+let recorded = 0;
+const loadedState = (store) => (next) => (action) => {
+  if (recordLoadedFromTheState === false) {
+    const prevState = store.getState();
+    recorded = prevState.recordState.size;
+    next(action);
+    if (recorded === 0) {
+      const loadFromStorege = loadState();
+      if (loadFromStorege !== null) {
+        return store.dispatch(loadRecord(loadFromStorege));
+      }
+    }
+    recordLoadedFromTheState = true;
+  }
+  return next(action);
+};
+
+const applyMid = applyMiddleware(loadedState, recordMiddleware);
 
 const makeStore = () => createStore(combineReducers(
   {

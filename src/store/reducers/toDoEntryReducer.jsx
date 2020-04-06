@@ -17,6 +17,8 @@ const toDoEntryReducer = (state = INITIAL_STATE, action) => {
       });
     case types.DELETE_TODO_ENTRY:
       return state.filter((entry) => (entry.get('id') !== action.id));
+    case types.CLEAR_ENTRIES:
+      return INITIAL_STATE;
     default:
       return state;
   }
