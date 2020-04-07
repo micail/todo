@@ -12,10 +12,14 @@ import Button from './Button';
 
 import './App.scss';
 
-const App = (props) => {
+const App = ({ toDoEntries, record, appState }) => {
   const [toDoList, setToDoList] = useState([]);
   const dispatch = useDispatch();
 
+  const toDoData = toDoEntries.toJS();
+  const recordData = record.toJS();
+
+  // TODO actions
   const deleteToDo = (id) => {
     dispatch(deleteEntry(id));
   };
@@ -24,6 +28,7 @@ const App = (props) => {
     dispatch(updateEntry({ id }));
   };
 
+  // Record actions
   const startRecording = () => {
     dispatch(recording());
   };
@@ -42,34 +47,35 @@ const App = (props) => {
     dispatch(clearRecord());
   };
 
+  // Render record in delay
   const renderInDelay = (element, delay) => {
     const interval = setTimeout(() => setToDoList(element), delay);
     return () => clearTimeout(interval);
   };
 
+  // Enable play record button
   const shouldEnablePlayButton = () => {
-    if (props.appState != 'PLAYING' && props.recordState.size > 0) {
+    if (appState !== 'PLAYING' && record.size > 0) {
       return true;
     }
     return false;
   };
 
   useEffect(() => {
-    if (props.appState === '') {
-      stopRecording();
-    }
-    if (props.appState === 'PLAYING' && props.recordState.size > 0) {
-      const recorded = props.recordState.toJS();
+    if (appState === '') { stopRecording(); }
+
+    // On play record clear TODO list store and 
+    if (appState === 'PLAYING' && record.size > 0) {
       setToDoList([]);
-      recorded.map((r, i) => {
+      recordData.map((r, i) => {
         const delay = i * 1000;
         return renderInDelay(r, delay);
       });
       stopRecording();
     } else {
-      setToDoList(props.toDoEntries);
+      setToDoList(toDoData);
     }
-  }, [props]);
+  }, [toDoEntries, record, appState]);
 
   return (
     <div className="container">
@@ -89,16 +95,16 @@ const App = (props) => {
       <div className="row">
         <div className="col-xs-12 col-md-6 padding-none">
           <div className="col-xs-12 col-md-6 col-lg-3">
-            <Button name="Record" action={startRecording} dis={(props.appState !== 'RECORDING')} />
+            <Button name="Record" action={startRecording} dis={(appState !== 'RECORDING')} />
           </div>
           <div className="col-xs-12 col-md-6 col-lg-3">
-            <Button name="Stop Recording" action={stopRecording} dis={(props.appState == 'RECORDING')} />
+            <Button name="Stop Recording" action={stopRecording} dis={(appState === 'RECORDING')} />
           </div>
           <div className="col-xs-12 col-md-6 col-lg-3">
             <Button name="Play Recording" action={playRecording} dis={shouldEnablePlayButton()} />
           </div>
           <div className="col-xs-12 col-md-6 col-lg-3">
-            <Button name="Clear Recording" action={clearRecording} dis={(props.appState !== 'RECORDING' && props.recordState.size > 0)} />
+            <Button name="Clear Recording" action={clearRecording} dis={(appState !== 'RECORDING' && record.size > 0)} />
           </div>
         </div>
       </div>
@@ -108,8 +114,8 @@ const App = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    toDoEntries: state.toDoEntries.toJS(),
-    recordState: state.recordState,
+    toDoEntries: state.toDoEntries,
+    record: state.recordState,
     appState: state.appState,
   };
 };
