@@ -54,7 +54,13 @@
     "automock": false,
     "setupFiles": [
       "./setupJest.js"
-    ]
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|scss)$": "<rootDir>/__mocks__/styleMock.js"
+    }
   },
   "dependencies": {
     "css-loader": "^3.4.2",
