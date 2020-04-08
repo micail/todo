@@ -13,4 +13,8 @@ describe('TO DO ENTRY TYPES TEST', () => {
     const expected = 'DELETE_TODO_ENTRY';
     expect(types.DELETE_TODO_ENTRY).toEqual(expected);
   });
+  it('should contain clear entries action type', () => {
+    const expected = 'CLEAR_ENTRIES';
+    expect(types.CLEAR_ENTRIES).toEqual(expected);
+  });
 });

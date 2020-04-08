@@ -1,4 +1,4 @@
-import { RECORD, CLEAR_RECORD, LOAD_RECORD } from '../types/recordType';
+import { RECORD, CLEAR_RECORD, LOAD_RECORD } from '../types/recordTypes';
 
 export const record = (toDoS) => ({ type: RECORD, toDoS });
 export const loadRecord = (recorded) => ({ type: LOAD_RECORD, recorded });

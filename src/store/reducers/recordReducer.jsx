@@ -1,5 +1,5 @@
 import { List } from 'immutable';
-import { RECORD, CLEAR_RECORD, LOAD_RECORD } from '../types/recordType';
+import { RECORD, CLEAR_RECORD, LOAD_RECORD } from '../types/recordTypes';
 
 export const INITIAL_STATE = List();
 

@@ -24,4 +24,10 @@ describe('TO DO ENTRY ACTION TEST', () => {
     };
     expect(actions.deleteEntry(1)).toEqual(expected);
   });
+  it('should contain an action to clear the state', () => {
+    const expected = {
+      type: types.CLEAR_ENTRIES,
+    };
+    expect(actions.clearEntries()).toEqual(expected);
+  });
 });

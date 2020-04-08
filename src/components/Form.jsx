@@ -4,7 +4,7 @@ import { createEntry, updateEntry } from '../store/actions/toDoEntryActions';
 
 import './Form.scss';
 
-const Form = ({ name, description, id, resetState }) => {
+const Form = ( { name, description, id, resetState } ) => {
   const [toDo, setToDo] = useState({});
   const dispatch = useDispatch();
 

@@ -43,4 +43,9 @@ describe('TODO ENTRY REDUCER TESTS', () => {
     const expected = List();
     expect(toDoEntryReducer(INITIAL_STATE, actions.deleteEntry(entryToDel))).toEqual(expected);
   });
+  it('should clear the state', () => {
+    const INITIAL_STATE = List();
+    const expected = List();
+    expect(toDoEntryReducer(INITIAL_STATE, actions.clearEntries())).toEqual(expected);
+  });
 });
