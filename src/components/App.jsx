@@ -1,5 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { connect, useDispatch } from 'react-redux';
 import { updateEntry, deleteEntry, clearEntries } from '../store/actions/toDoEntryActions';
 import { recording, playing, idle } from '../store/actions/appState';
@@ -16,8 +17,8 @@ const App = ({ toDoEntries, record, appState }) => {
   const [toDoList, setToDoList] = useState([]);
   const dispatch = useDispatch();
 
-  const toDoData = toDoEntries.toJS();
-  const recordData = record.toJS();
+  const toDoData = toDoEntries;
+  const recordData = record;
 
   // TODO actions
   const deleteToDo = (id) => {
@@ -55,7 +56,7 @@ const App = ({ toDoEntries, record, appState }) => {
 
   // Enable play record button
   const shouldEnablePlayButton = () => {
-    if (appState !== 'PLAYING' && record.size > 0) {
+    if (appState !== 'PLAYING' && record.length > 0) {
       return true;
     }
     return false;
@@ -64,13 +65,15 @@ const App = ({ toDoEntries, record, appState }) => {
   useEffect(() => {
     if (appState === '') { stopRecording(); }
 
-    // On play record clear TODO list store and 
-    if (appState === 'PLAYING' && record.size > 0) {
+    // On play record clear TODO list store and
+    if (appState === 'PLAYING' && record.length > 0) {
       setToDoList([]);
-      recordData.map((r, i) => {
-        const delay = i * 1000;
-        return renderInDelay(r, delay);
-      });
+      setTimeout(() =>
+        recordData.map((r, i) => {
+          const delay = i * 1000;
+          return renderInDelay(r, delay);
+        }),
+      );
       stopRecording();
     } else {
       setToDoList(toDoData);
@@ -104,7 +107,7 @@ const App = ({ toDoEntries, record, appState }) => {
             <Button name="Play Recording" action={playRecording} dis={shouldEnablePlayButton()} />
           </div>
           <div className="col-xs-12 col-md-6 col-lg-3">
-            <Button name="Clear Recording" action={clearRecording} dis={(appState !== 'RECORDING' && record.size > 0)} />
+            <Button name="Clear Recording" action={clearRecording} dis={(appState !== 'RECORDING' && record.length > 0)} />
           </div>
         </div>
       </div>
@@ -114,10 +117,22 @@ const App = ({ toDoEntries, record, appState }) => {
 
 const mapStateToProps = (state) => {
   return {
-    toDoEntries: state.toDoEntries,
-    record: state.recordState,
+    toDoEntries: state.toDoEntries.toJS(),
+    record: state.recordState.toJS(),
     appState: state.appState,
   };
 };
 
 export default connect(mapStateToProps)(App);
+
+App.propTypes = {
+  toDoEntries: PropTypes.arrayOf(PropTypes.object),
+  record: PropTypes.arrayOf(PropTypes.array),
+  appState: PropTypes.string,
+};
+
+App.defaultProps = {
+  toDoEntries: [],
+  record: [],
+  appState: '',
+};
