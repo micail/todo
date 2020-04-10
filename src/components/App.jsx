@@ -77,7 +77,7 @@ const App = ({ toDoEntries, record, appState }) => {
   useEffect(() => {
     // Change state to idle on first raload to rerender
     // TODO check if this can be dropped
-    if (appState === '') { stopRecording(); }
+    // if (appState === '') { stopRecording(); }
 
     // On play record clear TODO list store and
     if (appState === 'PLAYING' && record.length > 0) {

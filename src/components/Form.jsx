@@ -27,14 +27,14 @@ const Form = ({ name, description, id, resetState, addEntry, updateEntry }) => {
 
   return (
     <div className="form-wrapper">
-      <form onSubmit={handleSubmit}>
+      <form id={id ? 'form-update' : 'form-create'} onSubmit={handleSubmit}>
         <label htmlFor="name">
           Name:
-          <input id="name" placeholder="Enter name" onChange={handleChange} value={toDo.name || ''} required />
+          <input id="name" name="name" placeholder="Enter name" onChange={handleChange} value={toDo.name || ''} required />
         </label>
         <label htmlFor="description">
           Description:
-          <textarea id="description" placeholder="Enter description" onChange={handleChange} value={toDo.description || ''} required />
+          <textarea id="description" name="description" placeholder="Enter description" onChange={handleChange} value={toDo.description || ''} required />
         </label>
         <input type="submit" value="Save" />
       </form>
