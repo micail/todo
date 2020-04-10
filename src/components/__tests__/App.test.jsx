@@ -1,4 +1,5 @@
 import React from 'react';
+import { List } from 'immutable';
 import { shallow } from 'enzyme';
 
 import configureMockStore from 'redux-mock-store';
@@ -9,13 +10,25 @@ import App from '../App';
 
 describe('<App />', () => {
   const mockStore = configureMockStore();
-  const store = mockStore({ toDoEntries: [toDoEntry] });
+  const store = mockStore({
+    toDoEntries: List([toDoEntry]),
+    recordState: List([List([toDoEntry])]),
+    appState: '',
+  });
   const wrapper = shallow(<App store={store} />);
 
   it('should render correctly', () => {
     expect(wrapper).toMatchSnapshot();
   });
   it('should map state to props', () => {
-    expect(wrapper.props().children.props.toDoEntries).toEqual([toDoEntry]);
+    const toDoEntries = [toDoEntry];
+    const expexted = {
+      toDoEntries,
+      record: [toDoEntries],
+      appState: '',
+    };
+    expect(wrapper.props().children.props.toDoEntries).toEqual(expexted.toDoEntries);
+    expect(wrapper.props().children.props.record).toEqual(expexted.record);
+    expect(wrapper.props().children.props.appState).toEqual(expexted.appState);
   });
 });

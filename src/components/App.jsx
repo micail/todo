@@ -63,17 +63,17 @@ const App = ({ toDoEntries, record, appState }) => {
   };
 
   useEffect(() => {
+    // Change state to idle on first raload to rerender
+    // TODO check if this can be dropped
     if (appState === '') { stopRecording(); }
 
     // On play record clear TODO list store and
     if (appState === 'PLAYING' && record.length > 0) {
       setToDoList([]);
-      setTimeout(() =>
-        recordData.map((r, i) => {
-          const delay = i * 1000;
-          return renderInDelay(r, delay);
-        }),
-      );
+      setTimeout(() => recordData.map((r, i) => {
+        const delay = i * 1000;
+        return renderInDelay(r, delay);
+      }));
       stopRecording();
     } else {
       setToDoList(toDoData);
