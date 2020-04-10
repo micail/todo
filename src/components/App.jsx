@@ -2,13 +2,13 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect, useDispatch } from 'react-redux';
-import { updateEntry, deleteEntry, clearEntries } from '../store/actions/toDoEntryActions';
+import { createEntry, updateEntry, deleteEntry, clearEntries } from '../store/actions/toDoEntryActions';
 import { recording, playing, idle } from '../store/actions/appState';
 
 import { clearRecord } from '../store/actions/recordActions';
 
 import Form from './Form';
-import List from './List';
+import ToDoList from './ToDoList';
 import Button from './Button';
 
 import './App.scss';
@@ -21,12 +21,24 @@ const App = ({ toDoEntries, record, appState }) => {
   const recordData = record;
 
   // TODO actions
+  const addEntry = (entry) => {
+    const hash = () => Math.random().toString(36).slice(2);
+    dispatch(createEntry(
+      {
+        name: entry.name,
+        description: entry.description,
+        id: hash(),
+        creationDate: new Date(),
+      },
+    ));
+  };
+
   const deleteToDo = (id) => {
     dispatch(deleteEntry(id));
   };
 
-  const updateToDO = (id) => {
-    dispatch(updateEntry({ id }));
+  const updateToDO = (entry) => {
+    dispatch(updateEntry(entry));
   };
 
   // Record actions
@@ -85,13 +97,13 @@ const App = ({ toDoEntries, record, appState }) => {
 
       <div className="row">
         <div className="col-xs-12 col-md-6">
-          <Form />
+          <Form addEntry={addEntry} />
         </div>
       </div>
 
       <div className="row">
         <div className="col-xs-12 col-md-6">
-          <List toDoEntries={toDoList} updateEntry={updateToDO} deleteEntry={deleteToDo} />
+          <ToDoList toDoEntries={toDoList} updateEntry={updateToDO} deleteEntry={deleteToDo} />
         </div>
       </div>
 

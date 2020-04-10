@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { createEntry, updateEntry } from '../store/actions/toDoEntryActions';
 
 import './Form.scss';
 
-const Form = ( { name, description, id, resetState } ) => {
+const Form = ({ name, description, id, resetState, addEntry, updateEntry }) => {
   const [toDo, setToDo] = useState({});
-  const dispatch = useDispatch();
 
   useEffect(() => {
     setToDo(() => ({ ...toDo, name, description }));
@@ -18,12 +15,11 @@ const Form = ( { name, description, id, resetState } ) => {
   };
 
   const handleSubmit = (event) => {
+    event.preventDefault();
     if (!id) {
-      const hash = () => Math.random().toString(36).slice(2);
-      event.preventDefault();
-      dispatch(createEntry({ name: toDo.name, description: toDo.description, id: hash(), creationDate: new Date()}));
+      addEntry({ name: toDo.name, description: toDo.description });
     } else {
-      dispatch(updateEntry({ name: toDo.name, description: toDo.description, id }));
+      updateEntry({ name: toDo.name, description: toDo.description, id });
       resetState();
     }
     setToDo(() => ({}));

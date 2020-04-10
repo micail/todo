@@ -3,9 +3,9 @@ import React, { useState } from 'react';
 import Button from './Button';
 import Form from './Form';
 
-import './List.scss';
+import './ToDoList.scss';
 
-const List = ({ toDoEntries, deleteEntry, updateEntry }) => {
+const ToDoList = ({ toDoEntries, deleteEntry, updateEntry }) => {
   const [update, setUpdate] = useState();
 
   const resetState = () => {
@@ -17,7 +17,7 @@ const List = ({ toDoEntries, deleteEntry, updateEntry }) => {
       const { name, description, id } = toDo;
       return (update !== id
         ? (
-          <div className="list-item">
+          <div className="list-item" key={id}>
             <h1>{name}</h1>
             <p>{description}</p>
             <div className="col-xs-12 col-sm-6">
@@ -33,4 +33,4 @@ const List = ({ toDoEntries, deleteEntry, updateEntry }) => {
   );
 };
 
-export default List;
+export default ToDoList;
