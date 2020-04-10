@@ -9,8 +9,9 @@ import toDoEntry from '../../store/__test_utils/dataEntryMock';
 
 import App from '../App';
 
+const mockStore = configureMockStore();
+
 describe('<App />', () => {
-  const mockStore = configureMockStore();
   let mounted;
   let store = mockStore({
     toDoEntries: List([toDoEntry]),
@@ -68,3 +69,65 @@ describe('<App />', () => {
     expect(JSON.stringify(actions)).toContain('UPDATE_TODO_ENTRY');
   });
 });
+
+describe('<App /> Record actions', () => {
+  it('should disptch recording', () => {
+    const store = mockStore({
+      toDoEntries: List([toDoEntry]),
+      recordState: List([List([toDoEntry])]),
+      appState: '',
+    });
+    const mounted = mount(<Provider store={store}><App /></Provider>);
+    mounted.find('#btn-Record').simulate('click');
+    const actions = store.getActions();
+    expect(JSON.stringify(actions)).toContain('RECORDING');
+  });
+  it('on Play Recording button click should stop if recording, clear TODOs and dispatch play', () => {
+    const store = mockStore({
+      toDoEntries: List([toDoEntry]),
+      recordState: List([List([toDoEntry])]),
+      appState: '',
+    });
+    const mounted = mount(<Provider store={store}><App /></Provider>);
+    mounted.find('#btn-PlayRecording').simulate('click');
+    const actions = store.getActions();
+    expect(JSON.stringify(actions)).toContain('[{"type":"IDLE"},{"type":"CLEAR_ENTRIES"},{"type":"PLAYING"}]');
+  });
+  it('on Play Recording button click should stop if recording, clear TODOs and dispatch play', () => {
+    const store = mockStore({
+      toDoEntries: List([toDoEntry]),
+      recordState: List([List([toDoEntry])]),
+      appState: '',
+    });
+    const mounted = mount(<Provider store={store}><App /></Provider>);
+    mounted.find('#btn-PlayRecording').simulate('click');
+    const actions = store.getActions();
+    expect(JSON.stringify(actions)).toContain('[{"type":"IDLE"},{"type":"CLEAR_ENTRIES"},{"type":"PLAYING"}]');
+  });
+  it('should claer recording', () => {
+    const store = mockStore({
+      toDoEntries: List([toDoEntry]),
+      recordState: List([List([toDoEntry])]),
+      appState: 'IDLE',
+    });
+    const mounted = mount(<Provider store={store}><App /></Provider>);
+    mounted.find('#btn-ClearRecording').simulate('click');
+    const actions = store.getActions();
+    expect(JSON.stringify(actions)).toContain('CLEAR_RECORD');
+  });
+});
+
+// TODO: Test tiemout in functional component using JEST
+// describe('<App /> Playing record', () => {
+//   it('should play record ', () => {
+//     const store = mockStore({
+//       toDoEntries: List([toDoEntry]),
+//       recordState: List([List([toDoEntry])]),
+//       appState: 'PLAYING',
+//     });
+//     const mounted = mount(<Provider store={store}><App /></Provider>);
+//     jest.runAllTimers();
+//     const actions = store.getActions();
+//     expect(JSON.stringify(actions)).toContain('CLEAR_RECORD');
+//   });
+// });

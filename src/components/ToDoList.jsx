@@ -27,7 +27,7 @@ const ToDoList = ({ toDoEntries, deleteEntry, updateEntry }) => {
               <button id="update" className="btn" name="update" type="button" onClick={() => (setUpdate(id))}>UPDATE</button>
             </div>
           </div>
-        ) : (<Form resetState={resetState} updateEntry={updateEntry} name={name} description={description} id={id} />)
+        ) : (<Form key={id} resetState={resetState} updateEntry={updateEntry} name={name} description={description} id={id} />)
       );
     })
   );
