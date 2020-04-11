@@ -14,11 +14,11 @@ describe('RECORD REDUCER TESTS', () => {
     const expected = List().push(data);
     expect(record(state, actions.record(data))).toEqual(expected);
   });
-  it('should clear record', () => {
+  it('should clear the record', () => {
     const INITIAL_STATE = List();
     expect(record(state, actions.clearRecord())).toEqual(INITIAL_STATE);
   });
-  it('should load record', () => {
+  it('should load the record', () => {
     const data = List().push(Map(toDoEntry));
     expect(record(state, actions.loadRecord(data))).toEqual(data);
   });

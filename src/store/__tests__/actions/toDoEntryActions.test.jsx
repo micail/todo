@@ -2,8 +2,8 @@ import * as types from '../../types/toDoTypes';
 import * as actions from '../../actions/toDoEntryActions';
 import toDoEntry from '../../__test_utils/dataEntryMock';
 
-describe('TO DO ENTRY ACTION TEST', () => {
-  it('should contain an action to create the entry', () => {
+describe('TO DO ENTRY ACTION TESTS', () => {
+  it('should contain an action to create an entry', () => {
     const expected = {
       type: types.CREATE_TODO_ENTRY,
       entry: toDoEntry,
