@@ -10,7 +10,7 @@ import appState from './reducers/appStateReducer';
 
 import { record, loadRecord } from './actions/recordActions';
 
-const saveState = (state) => {
+export const saveState = (state) => {
   try {
     const serializedState = JSON.stringify(state);
     return localStorage.setItem('toDoStorage', serializedState);
@@ -19,7 +19,7 @@ const saveState = (state) => {
   }
 };
 
-const loadState = () => {
+export const loadState = () => {
   try {
     const serializedState = localStorage.getItem('toDoStorage');
     if (serializedState === null) {
@@ -32,7 +32,7 @@ const loadState = () => {
 };
 
 
-const recordChange = (prevToDoEntries, nextToDoEntries, store) => {
+export const recordChange = (prevToDoEntries, nextToDoEntries, store) => {
   const prevToDoEntriesJSON = JSON.stringify(prevToDoEntries.toJS());
   const nextToDoEntriesJSON = JSON.stringify(nextToDoEntries.toJS());
 
@@ -50,12 +50,15 @@ const recordMiddleware = (store) => (next) => (action) => {
   const nextState = store.getState();
   const nextToDoEntries = nextState.toDoEntries;
 
+  // Record any change in TODO's if the state is recording
   if (prevState.appState === 'RECORDING') { recordChange(prevToDoEntries, nextToDoEntries, store); }
-
+  // Save state to the local storage after recording if the record is not empty
   if (prevState.appState === 'RECORDING' && nextState.appState !== 'RECORDING') { saveState(nextState.recordState); }
 };
 
+// Add flag to stop loading allready loaded state - make it less expensive
 let recordLoadedFromTheState = false;
+// Add flag to stop loading if any record exist in the redux store
 let recorded = 0;
 const loadedState = (store) => (next) => (action) => {
   if (recordLoadedFromTheState === false) {
@@ -63,9 +66,9 @@ const loadedState = (store) => (next) => (action) => {
     recorded = prevState.recordState.size;
     next(action);
     if (recorded === 0) {
-      const loadFromStorege = loadState();
-      if (loadFromStorege !== null) {
-        return store.dispatch(loadRecord(loadFromStorege));
+      const loadFromStorage = loadState();
+      if (loadFromStorage !== null) {
+        return store.dispatch(loadRecord(loadFromStorage));
       }
     }
     recordLoadedFromTheState = true;
