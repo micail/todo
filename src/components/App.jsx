@@ -61,6 +61,8 @@ const App = ({ toDoEntries, record, appState }) => {
 
   const clearRecording = () => {
     dispatch(clearRecord());
+    // Change state to IDLE
+    stopRecording();
   };
 
   // Render record in delay
@@ -71,22 +73,22 @@ const App = ({ toDoEntries, record, appState }) => {
 
   // Enable play record button
   const shouldEnablePlayButton = () => {
-    if (appState !== 'PLAYING' && record.length > 0) {
+    if (record.length > 0) {
       return true;
     }
     return false;
   };
 
   useEffect(() => {
+    // On start set state to IDLE
     if (appState === '') { stopRecording(); }
-    // On play record clear TODO list store and
+    // On play record clear TODO list store and rented in timeout
     if (appState === 'PLAYING' && record.length > 0) {
       setToDoList([]);
       recordData.map((r, i) => {
         const delay = i * 1000;
         return renderInDelay(r, delay);
       });
-      stopRecording();
     } else {
       setToDoList(toDoData);
     }
@@ -103,7 +105,7 @@ const App = ({ toDoEntries, record, appState }) => {
 
       <div className="row">
         <div className="col-xs-12 col-md-6">
-          <ToDoList toDoEntries={toDoList} updateEntry={toDoEntries.length > 0 ? updateToDO : null} deleteEntry={deleteToDo} />
+          <ToDoList toDoEntries={toDoList} updateEntry={updateToDO} deleteEntry={deleteToDo} appState={appState}/>
         </div>
       </div>
 
