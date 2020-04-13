@@ -23,27 +23,6 @@ const App = ({ toDoEntries, record, appState }) => {
   const toDoData = toDoEntries;
   const recordData = record;
 
-  // TODO actions
-  const addEntry = (entry) => {
-    const hash = () => Math.random().toString(36).slice(2);
-    dispatch(createEntry(
-      {
-        name: entry.name,
-        description: entry.description,
-        id: hash(),
-        creationDate: new Date(),
-      },
-    ));
-  };
-
-  const deleteToDo = (id) => {
-    dispatch(deleteEntry(id));
-  };
-
-  const updateToDO = (entry) => {
-    dispatch(updateEntry(entry));
-  };
-
   // Record actions
   const startRecording = () => {
     dispatch(recording());
@@ -57,6 +36,29 @@ const App = ({ toDoEntries, record, appState }) => {
     stopRecording();
     dispatch(clearEntries());
     dispatch(playing());
+  };
+
+
+  // TODO actions
+  const addEntry = (entry) => {
+    const hash = () => Math.random().toString(36).slice(2);
+    dispatch(createEntry(
+      {
+        name: entry.name,
+        description: entry.description,
+        id: hash(),
+        creationDate: new Date(),
+      },
+    ));
+    stopRecording();
+  };
+
+  const deleteToDo = (id) => {
+    dispatch(deleteEntry(id));
+  };
+
+  const updateToDO = (entry) => {
+    dispatch(updateEntry(entry));
   };
 
   const clearRecording = () => {
@@ -105,7 +107,7 @@ const App = ({ toDoEntries, record, appState }) => {
 
       <div className="row">
         <div className="col-xs-12 col-md-6">
-          <ToDoList toDoEntries={toDoList} updateEntry={updateToDO} deleteEntry={deleteToDo} appState={appState}/>
+          <ToDoList toDoEntries={toDoList} updateEntry={updateToDO} deleteEntry={deleteToDo} appState={appState} />
         </div>
       </div>
 
