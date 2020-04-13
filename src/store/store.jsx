@@ -82,10 +82,10 @@ const loadedState = (store) => (next) => (action) => {
     if (recorded === 0) {
       const loadFromStorage = loadStateFromStorage();
       if (loadFromStorage !== null) {
+        recordLoadedFromTheState = true;
         return store.dispatch(loadRecord(loadFromStorage));
       }
     }
-    recordLoadedFromTheState = true;
   }
   return next(action);
 };
