@@ -1,5 +1,6 @@
 import * as types from '../../types/toDoTypes';
 import * as actions from '../../actions/toDoEntryActions';
+
 import toDoEntry from '../../__test_utils/dataEntryMock';
 
 describe('TO DO ENTRY ACTION TESTS', () => {

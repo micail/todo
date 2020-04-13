@@ -32,15 +32,15 @@ module.exports = merge(config, {
       })
     }),
     new CopyWebpackPlugin([{
-        context: 'src',
-        from: 'favicon.ico',
-        to: 'favicon.ico',
-      },
-      {
-        context: 'src',
-        from: 'apple-touch-icon.png',
-        to: 'apple-touch-icon.png',
-      },
+      context: 'src',
+      from: 'favicon.ico',
+      to: 'favicon.ico',
+    },
+    {
+      context: 'src',
+      from: 'apple-touch-icon.png',
+      to: 'apple-touch-icon.png',
+    },
     ]),
   ],
   optimization: {

@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
 import './Form.scss';
 
-const Form = ({ name, description, id, resetState, addEntry, updateEntry }) => {
+const Form = ({
+  name,
+  description,
+  id,
+  resetState,
+  addEntry,
+  updateEntry,
+}) => {
   const [toDo, setToDo] = useState({});
 
   useEffect(() => {
@@ -43,3 +51,21 @@ const Form = ({ name, description, id, resetState, addEntry, updateEntry }) => {
 };
 
 export default Form;
+
+Form.propTypes = {
+  name: PropTypes.string,
+  description: PropTypes.string,
+  id: PropTypes.number,
+  resetState: PropTypes.func,
+  addEntry: PropTypes.func,
+  updateEntry: PropTypes.func,
+};
+
+Form.defaultProps = {
+  name: '',
+  description: '',
+  id: null,
+  resetState: null,
+  addEntry: null,
+  updateEntry: null,
+};

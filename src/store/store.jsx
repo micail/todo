@@ -10,7 +10,7 @@ import appState from './reducers/appStateReducer';
 
 import { record, loadRecord } from './actions/recordActions';
 
-export const saveState = (state) => {
+export const saveStateToStorage = (state) => {
   try {
     const serializedState = JSON.stringify(state);
     return localStorage.setItem('toDoStorage', serializedState);
@@ -19,13 +19,24 @@ export const saveState = (state) => {
   }
 };
 
-export const loadState = () => {
+export const loadStateFromStorage = () => {
   try {
     const serializedState = localStorage.getItem('toDoStorage');
     if (serializedState === null) {
       return null;
     }
     return JSON.parse(serializedState);
+  } catch (err) {
+    return console.log('Error', err);
+  }
+};
+
+export const clearStorage = () => {
+  try {
+    const serializedState = localStorage.removeItem('toDoStorage');
+    if (serializedState === null) {
+      return null;
+    }
   } catch (err) {
     return console.log('Error', err);
   }
@@ -53,20 +64,23 @@ const recordMiddleware = (store) => (next) => (action) => {
   // Record any change in TODO's if the state is recording
   if (prevState.appState === 'RECORDING') { recordChange(prevToDoEntries, nextToDoEntries, store); }
   // Save state to the local storage after recording if the record is not empty
-  if (prevState.appState === 'RECORDING' && nextState.appState !== 'RECORDING') { saveState(nextState.recordState); }
+  if (prevState.appState === 'RECORDING' && nextState.appState !== 'RECORDING') { saveStateToStorage(nextState.recordState); }
 };
 
-// Add flag to stop loading allready loaded state - make it less expensive
+// Add flag to stop loading already loaded state - make it less expensive
 let recordLoadedFromTheState = false;
 // Add flag to stop loading if any record exist in the redux store
 let recorded = 0;
 const loadedState = (store) => (next) => (action) => {
+  if (action && action.type === 'CLEAR_RECORD') {
+    clearStorage();
+  }
   if (recordLoadedFromTheState === false) {
     const prevState = store.getState();
     recorded = prevState.recordState.size;
     next(action);
     if (recorded === 0) {
-      const loadFromStorage = loadState();
+      const loadFromStorage = loadStateFromStorage();
       if (loadFromStorage !== null) {
         return store.dispatch(loadRecord(loadFromStorage));
       }

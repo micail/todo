@@ -14,7 +14,7 @@ describe('RECORD ACTION TESTS', () => {
     };
     expect(actions.loadRecord()).toEqual(expected);
   });
-  it('should contain iddle action', () => {
+  it('should contain idle action', () => {
     const expected = {
       type: types.CLEAR_RECORD,
     };

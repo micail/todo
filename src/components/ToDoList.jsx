@@ -1,5 +1,7 @@
 
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+
 import Button from './Button';
 import Form from './Form';
 
@@ -34,3 +36,15 @@ const ToDoList = ({ toDoEntries, deleteEntry, updateEntry }) => {
 };
 
 export default ToDoList;
+
+ToDoList.propTypes = {
+  toDoEntries: PropTypes.arrayOf(PropTypes.object),
+  deleteEntry: PropTypes.fun,
+  updateEntry: PropTypes.fun,
+};
+
+ToDoList.defaultProps = {
+  toDoEntries: [],
+  deleteEntry: null,
+  updateEntry: null,
+};

@@ -2,7 +2,10 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect, useDispatch } from 'react-redux';
-import { createEntry, updateEntry, deleteEntry, clearEntries } from '../store/actions/toDoEntryActions';
+
+import {
+  createEntry, updateEntry, deleteEntry, clearEntries,
+} from '../store/actions/toDoEntryActions';
 import { recording, playing, idle } from '../store/actions/appState';
 
 import { clearRecord } from '../store/actions/recordActions';
@@ -75,6 +78,7 @@ const App = ({ toDoEntries, record, appState }) => {
   };
 
   useEffect(() => {
+    if (appState === '') { stopRecording(); }
     // On play record clear TODO list store and
     if (appState === 'PLAYING' && record.length > 0) {
       setToDoList([]);
@@ -99,7 +103,7 @@ const App = ({ toDoEntries, record, appState }) => {
 
       <div className="row">
         <div className="col-xs-12 col-md-6">
-          <ToDoList toDoEntries={toDoList} updateEntry={updateToDO} deleteEntry={deleteToDo} />
+          <ToDoList toDoEntries={toDoList} updateEntry={toDoEntries.length > 0 ? updateToDO : null} deleteEntry={deleteToDo} />
         </div>
       </div>
 

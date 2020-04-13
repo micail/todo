@@ -1,6 +1,6 @@
 import * as types from '../../types/recordTypes';
 
-describe('RECORD TYPES TEST', () => {
+describe('RECORD TYPES TESTS', () => {
   it('should contain record action type', () => {
     const expected = 'RECORD';
     expect(types.RECORD).toEqual(expected);

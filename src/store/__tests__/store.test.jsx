@@ -4,8 +4,8 @@ import makeStore, { recordChange, saveState, loadState } from '../store';
 import * as toDoActions from '../actions/toDoEntryActions';
 import * as stateActions from '../actions/appState';
 
-describe('Local storage test', () => {
-  it('should dispatch record from local storage', async () => {
+describe('LOCAL STORAGE TESTS', () => {
+  it('should dispatch record from the local storage', async () => {
     const data = { foo: 'bar2' };
     const str = JSON.stringify(data);
     await localStorage.setItem('toDoStorage', str);
@@ -15,7 +15,7 @@ describe('Local storage test', () => {
   });
 });
 
-describe('Store tests test', () => {
+describe('REDUX STORE TESTS', () => {
   it('should create a new store', () => {
     const store = makeStore();
     expect(store).toBeDefined();
@@ -28,7 +28,7 @@ describe('Store tests test', () => {
     const storeState = JSON.stringify(store.getState().recordState);
     expect(storeState).toContain('bar');
   });
-  it('should record any change of ToDos if recording', () => {
+  it('should record any change of TODOs if recording', () => {
     const store = makeStore();
     const toDoS = { name: 'Foo Bar' };
     store.dispatch(stateActions.recording());
@@ -66,21 +66,17 @@ describe('Store tests test', () => {
     saveState(dataString);
     expect(console.log.mock.calls[0][0]).toBe('Error');
   });
-  it('should log an error if there can not load from local storage', () => {
+  it('should log an error if can not load from the local storage', () => {
     console.log = jest.fn();
     Storage.prototype.getItem = jest.fn(() => {
       throw new Error('Error');
     });
-    const data = { foo: 'bar' };
-    const dataString = JSON.stringify(data);
     loadState();
     expect(console.log.mock.calls[0][0]).toBe('Error');
   });
-  it('should return null if no data in the storage', () => {
+  it('should return null if there is no data in the storage', () => {
     console.log = jest.fn();
-    Storage.prototype.getItem = jest.fn(() => {
-      return null;
-    });
+    Storage.prototype.getItem = jest.fn(() => null);
     expect(loadState()).toBe(null);
   });
 });

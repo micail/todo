@@ -25,7 +25,7 @@ describe('TODO ENTRY REDUCER TESTS', () => {
     const expected = List().push(Map(expectedObject));
     expect(toDoEntryReducer(INITIAL_STATE, actions.updateEntry(update))).toEqual(expected);
   });
-  it('should NOT update the unmatched entry', () => {
+  it('should NOT update unmatched entry', () => {
     const INITIAL_STATE = List().push(Map(toDoEntry));
     const update = {
       id: 2,

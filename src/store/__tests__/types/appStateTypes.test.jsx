@@ -1,7 +1,7 @@
 import * as types from '../../types/appStateTypes';
 
-describe('APP STATE TYPES TEST', () => {
-  it('should contain recoringd action type', () => {
+describe('APP STATE TYPES TESTS', () => {
+  it('should contain recording action type', () => {
     const expected = 'RECORDING';
     expect(types.RECORDING).toEqual(expected);
   });

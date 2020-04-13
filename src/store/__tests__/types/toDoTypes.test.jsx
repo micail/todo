@@ -1,6 +1,6 @@
 import * as types from '../../types/toDoTypes';
 
-describe('TO DO ENTRY TYPES TEST', () => {
+describe('TODO ENTRY TYPES TESTS', () => {
   it('should contain create entry action type', () => {
     const expected = 'CREATE_TODO_ENTRY';
     expect(types.CREATE_TODO_ENTRY).toEqual(expected);
