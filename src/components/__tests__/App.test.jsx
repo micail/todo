@@ -117,17 +117,16 @@ describe('<App /> Record actions', () => {
   });
 });
 
-// TODO: Test tiemout in functional component using JEST
-// describe('<App /> Playing record', () => {
-//   it('should play record ', () => {
-//     const store = mockStore({
-//       toDoEntries: List([toDoEntry]),
-//       recordState: List([List([toDoEntry])]),
-//       appState: 'PLAYING',
-//     });
-//     const mounted = mount(<Provider store={store}><App /></Provider>);
-//     jest.runAllTimers();
-//     const actions = store.getActions();
-//     expect(JSON.stringify(actions)).toContain('CLEAR_RECORD');
-//   });
-// });
+describe('<App /> Playing record', () => {
+  it('should start play record in delay and stop recording', () => {
+    jest.useFakeTimers();
+    const store = mockStore({
+      toDoEntries: List([toDoEntry]),
+      recordState: List([List([toDoEntry])]),
+      appState: 'PLAYING',
+    });
+    mount(<Provider store={store}><App /></Provider>);
+    const actions = store.getActions();
+    expect(JSON.stringify(actions)).toContain('IDLE');
+  });
+});
