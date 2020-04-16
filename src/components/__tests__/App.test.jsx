@@ -46,7 +46,7 @@ describe('<App />', () => {
     expect(wrapper.props().children.props.appState).toEqual(expexted.appState);
   });
 
-  it('should map props to the state componet', () => {
+  it('should map props to the state component', () => {
     expect(mounted.find(ToDoList)).toHaveLength(1);
   });
 
@@ -104,7 +104,7 @@ describe('<App /> Record actions', () => {
     const actions = store.getActions();
     expect(JSON.stringify(actions)).toContain('[{"type":"IDLE"},{"type":"IDLE"},{"type":"CLEAR_ENTRIES"},{"type":"PLAYING"}]');
   });
-  it('should claer recording', () => {
+  it('should clear recording', () => {
     const store = mockStore({
       toDoEntries: List([toDoEntry]),
       recordState: List([List([toDoEntry])]),
@@ -128,7 +128,7 @@ describe('<App /> Playing record', () => {
     });
     const container = mount(<Provider store={store}><App /></Provider>);
     jest.runAllTimers();
-    console.log(container.debug())
+    console.log(container.debug());
     expect(container).toContain({});
   });
 });
