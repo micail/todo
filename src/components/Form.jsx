@@ -26,7 +26,6 @@ const Form = ({
     event.preventDefault();
     if (!id) {
       addEntry({ name: toDo.name, description: toDo.description });
-      resetState();
     } else {
       updateEntry({ name: toDo.name, description: toDo.description, id });
       resetState();

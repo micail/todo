@@ -32,23 +32,20 @@ export const loadStateFromStorage = () => {
 };
 
 export const clearStorage = () => {
-  try {
-    const serializedState = localStorage.removeItem('toDoStorage');
-    if (serializedState === null) {
-      return null;
-    }
-  } catch (err) {
-    return console.log('Error', err);
-  }
+  localStorage.removeItem('toDoStorage');
+};
+
+export const recordChange = (ToDoEntries, store) => {
+  store.dispatch(record(ToDoEntries));
 };
 
 
-export const recordChange = (prevToDoEntries, nextToDoEntries, store) => {
+export const hasChanged = (prevToDoEntries, nextToDoEntries, store) => {
   const prevToDoEntriesJSON = JSON.stringify(prevToDoEntries.toJS());
   const nextToDoEntriesJSON = JSON.stringify(nextToDoEntries.toJS());
 
   if (prevToDoEntriesJSON !== nextToDoEntriesJSON) {
-    store.dispatch(record(nextToDoEntries));
+    recordChange(nextToDoEntries, store);
   }
 };
 
@@ -61,10 +58,17 @@ const recordMiddleware = (store) => (next) => (action) => {
   const nextState = store.getState();
   const nextToDoEntries = nextState.toDoEntries;
 
+  if (prevState.appState !== 'RECORDING' && nextState.appState === 'RECORDING') {
+    recordChange(prevToDoEntries, store);
+  }
   // Record any change in TODO's if the state is recording
-  if (prevState.appState === 'RECORDING') { recordChange(prevToDoEntries, nextToDoEntries, store); }
+  if (prevState.appState === 'RECORDING') {
+    hasChanged(prevToDoEntries, nextToDoEntries, store);
+  }
   // Save state to the local storage after recording if the record is not empty
-  if (prevState.appState === 'RECORDING' && nextState.appState !== 'RECORDING') { saveStateToStorage(nextState.recordState); }
+  if (prevState.appState === 'RECORDING' && nextState.appState !== 'RECORDING') {
+    saveStateToStorage(nextState.recordState);
+  }
 };
 
 // Add flag to stop loading already loaded state - make it less expensive

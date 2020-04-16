@@ -63,7 +63,7 @@ describe('<App />', () => {
   });
 
   it('should dispatch update entry', () => {
-    mounted.find('#update').simulate('click');
+    mounted.find('#btn-update').simulate('click');
     mounted.find('#form-update').simulate('submit');
     const actions = store.getActions();
     expect(JSON.stringify(actions)).toContain('UPDATE_TODO_ENTRY');
@@ -71,7 +71,7 @@ describe('<App />', () => {
 });
 
 describe('<App /> Record actions', () => {
-  it('should disptch recording', () => {
+  it('should dispatch recording', () => {
     const store = mockStore({
       toDoEntries: List([toDoEntry]),
       recordState: List([List([toDoEntry])]),
@@ -91,7 +91,7 @@ describe('<App /> Record actions', () => {
     const mounted = mount(<Provider store={store}><App /></Provider>);
     mounted.find('#btn-PlayRecording').simulate('click');
     const actions = store.getActions();
-    expect(JSON.stringify(actions)).toContain('[{"type":"IDLE"},{"type":"CLEAR_ENTRIES"},{"type":"PLAYING"}]');
+    expect(JSON.stringify(actions)).toContain('[{"type":"IDLE"},{"type":"IDLE"},{"type":"CLEAR_ENTRIES"},{"type":"PLAYING"}]');
   });
   it('on Play Recording button click should stop if recording, clear TODOs and dispatch play', () => {
     const store = mockStore({
@@ -102,7 +102,7 @@ describe('<App /> Record actions', () => {
     const mounted = mount(<Provider store={store}><App /></Provider>);
     mounted.find('#btn-PlayRecording').simulate('click');
     const actions = store.getActions();
-    expect(JSON.stringify(actions)).toContain('[{"type":"IDLE"},{"type":"CLEAR_ENTRIES"},{"type":"PLAYING"}]');
+    expect(JSON.stringify(actions)).toContain('[{"type":"IDLE"},{"type":"IDLE"},{"type":"CLEAR_ENTRIES"},{"type":"PLAYING"}]');
   });
   it('should claer recording', () => {
     const store = mockStore({
@@ -117,6 +117,7 @@ describe('<App /> Record actions', () => {
   });
 });
 
+// TODO: This test is invalid. find solution how to run expect after timers
 describe('<App /> Playing record', () => {
   it('should start play record in delay and stop recording', () => {
     jest.useFakeTimers();
@@ -125,8 +126,9 @@ describe('<App /> Playing record', () => {
       recordState: List([List([toDoEntry])]),
       appState: 'PLAYING',
     });
-    mount(<Provider store={store}><App /></Provider>);
-    const actions = store.getActions();
-    expect(JSON.stringify(actions)).toContain('IDLE');
+    const container = mount(<Provider store={store}><App /></Provider>);
+    jest.runAllTimers();
+    console.log(container.debug())
+    expect(container).toContain({});
   });
 });

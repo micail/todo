@@ -38,7 +38,6 @@ const App = ({ toDoEntries, record, appState }) => {
     dispatch(playing());
   };
 
-
   // TODO actions
   const addEntry = (entry) => {
     const hash = () => Math.random().toString(36).slice(2);
@@ -50,7 +49,6 @@ const App = ({ toDoEntries, record, appState }) => {
         creationDate: new Date(),
       },
     ));
-    stopRecording();
   };
 
   const deleteToDo = (id) => {
@@ -107,7 +105,12 @@ const App = ({ toDoEntries, record, appState }) => {
 
       <div className="row">
         <div className="col-xs-12 col-md-6">
-          <ToDoList toDoEntries={toDoList} updateEntry={updateToDO} deleteEntry={deleteToDo} appState={appState} />
+          <ToDoList
+            toDoEntries={toDoList}
+            updateEntry={updateToDO}
+            deleteEntry={deleteToDo}
+            appState={appState}
+          />
         </div>
       </div>
 
